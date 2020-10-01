@@ -7,8 +7,6 @@ BIN_DIR = bin
 SRCS := $(shell find $(SRC_DIR) -name '*.c')
 OBJS := $(subst $(SRC_DIR),$(OBJ_DIR),$(subst .c,.o,$(SRCS)))
 
-compile: $(OBJS)
-
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
@@ -16,6 +14,7 @@ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR) 
+	printf "\033[31m" ; ./cstyle.pl $< ; printf "\033[0m"
 	$(CC) $(CC_FLAGS) -o $@ -c $< 
 
 $(BIN_DIR)/%.out: $(OBJ_DIR)/%.o $(BIN_DIR)
