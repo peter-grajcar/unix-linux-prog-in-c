@@ -1,1 +1,1 @@
-cstyle.pl linguist-vendored=false
+cstyle.pl linguist-vendored -linguist-generated
