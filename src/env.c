@@ -10,11 +10,13 @@ main(int argc, char *argv[])
 	}
 
 	int i = 1;
-	if(argv[i][0] == '-' && !argv[i][1]) {
+
+	if (getopt(argc, argv, "i") == 'i') {
+		printf("clearing");
 		//clearenv();
 		++i;
 	}
-
+	
 	if(argc == 2) {
 		printf("%s: need at least two arguments\n", argv[0]);
 		exit(1);

@@ -1,5 +1,5 @@
 CC = gcc
-CC_FLAGS = -g -std=c99 -Wall -Wextra -Wshadow
+CC_FLAGS = -g -std=c99 -Wall -Wextra -Wshadow -Wpedantic
 
 SRC_DIR = src
 INCLUDE_DIR = include
