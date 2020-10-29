@@ -49,6 +49,7 @@ main(int argc, char *argv[])
 	if (!username && !hostname)
 		return (0);
 
+	// patterns argument parsing
 	char *match_username = NULL;
 	char *match_hostname = NULL;
 	for (int i = optind; i < argc; ++i) {
@@ -71,7 +72,7 @@ main(int argc, char *argv[])
 	if (stat_status)
 		errx(stat_status, "stat");
 
-	// save original the modification time
+	// save the original modification time
 	struct utimbuf orig_time = {
 		.actime = info.st_atime,
 		.modtime = info.st_mtime
@@ -94,16 +95,19 @@ main(int argc, char *argv[])
 
 	// read the records
 	while ((read_size = read(fd, &record, len)) == len) {
-		if (match_username && strncmp(match_username, record.ut_host, _UTX_USERSIZE))
+		// check if the patterns match
+		if (match_username && strncmp(match_username, record.ut_user, _UTX_USERSIZE))
 			continue;
-		if (match_hostname && strncmp(match_hostname, record.ut_user, _UTX_HOSTSIZE))
+		if (match_hostname && strncmp(match_hostname, record.ut_host, _UTX_HOSTSIZE))
 			continue;
 
+		// make changes
 		if (username)
 			strncpy(record.ut_user, username, _UTX_USERSIZE);
 		if (hostname)
 			strncpy(record.ut_host, hostname, _UTX_HOSTSIZE);
 
+		// write back
 		seek_off = lseek(fd, -off, SEEK_CUR);
 		if (seek_off > 0)
 			write(fd, &record, len);
