@@ -27,7 +27,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
 $(BIN_DIR)/%.out: $(OBJ_DIR)/%.o $(BIN_DIR)
 	$(CC) -L$(LIB_DIR) $(addprefix -l,$(LIBS)) -o $@ $<
 
-$(LIB_DIR)/%.so: $(OBJ_DIR)/%.o $(LIB_DIR)
+$(LIB_DIR)/lib%.so: $(OBJ_DIR)/%.o $(LIB_DIR)
 	$(CC) -shared -o $@ $<
 
 .PRECIOUS: $(BIN_DIR)/%.out
