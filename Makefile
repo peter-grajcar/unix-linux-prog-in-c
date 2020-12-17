@@ -33,7 +33,7 @@ $(LIB_DIR)/lib%.so: $(OBJ_DIR)/%.o $(LIB_DIR)
 .PRECIOUS: $(BIN_DIR)/%.out
 .PRECIOUS: $(OBJ_DIR)/%.o
 
-%\#run: $(BIN_DIR)/%.out	
+run@%: $(BIN_DIR)/%.out	
 	@printf "=%.0s" {1..20}
 	@printf " %s " $< 
 	@printf "=%.0s" {1..20}
